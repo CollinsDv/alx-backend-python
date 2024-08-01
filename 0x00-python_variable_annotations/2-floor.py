@@ -3,8 +3,9 @@
 """
 # Write a type-annotated function floor which takes
 # a float n as argument and returns the floor of the float.
+import math
 
 
 def floor(n: float) -> float:
     """floors an float value"""
-    return floor(n)
+    return math.floor(n)
