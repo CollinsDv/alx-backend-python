@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """module: 9-element_length"""
-from typing import List, Tuple
+from typing import List, Tuple, Sequence
 # Annotate the below function’s parameters
 # and return values with the appropriate types:
 #   def element_length(lst):
 #       return [(i, len(i)) for i in lst]
 
 
-def element_length(lst: List[str]) -> List[Tuple[str, int]]:
+def element_length(lst: List[Sequence]) -> List[Tuple[Sequence, int]]:
     """returns a tuple from list operation
     Args:
         lst (List[str]): A list of strings.
