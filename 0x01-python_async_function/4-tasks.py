@@ -3,10 +3,10 @@
 
 ensure the defined async func in file 1 is callable
 """
+from typing import List
 import asyncio
 wait_random = __import__(
                          '0-basic_async_syntax').wait_random
-from typing import List
 
 
 async def task_wait_n(n: int, max_delay: int) -> List[float]:
