@@ -9,7 +9,7 @@ wait_random = __import__(
 from typing import List
 
 
-async def task_wait_random(n: int, max_delay: int) -> List[float]:
+async def task_wait_n(n: int, max_delay: int) -> List[float]:
     """spans wait_random and returns list of return value
     Args:
         n(int) -> number of iterations
