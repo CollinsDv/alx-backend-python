@@ -12,7 +12,7 @@ import asyncio
 # Use the random module.
 
 
-async def wait_random(max_delay: int = 10):
+async def wait_random(max_delay: int = 10) -> float:
     """waits on random delay
     Args:
         max_delay (int) -> upper bound for delay operation
