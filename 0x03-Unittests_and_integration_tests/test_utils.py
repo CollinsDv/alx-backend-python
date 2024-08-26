@@ -48,5 +48,4 @@ class TestGetJson(unittest.TestCase):
         mock_get.return_value = response_mock
 
         assert get_json(link) == payload
-        mock_get.assert_called_once()
-        mock_get.assert_called_with(link)
+        mock_get.assert_called_once_with(link)
