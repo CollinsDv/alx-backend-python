@@ -61,14 +61,20 @@ class TestGithubOrgClient(unittest.TestCase):
     Test that the mocked property and the mocked get_json was called once.
     """
     @unittest.mock.patch("client.get_json")
-    def test_public_repos_url(self, mock_get_json):
-        """testing _public_repos method"""
-        # mock_get_json.return_value = {"repos_url": "www.example.com"}
+    def test_public_repos(self, mock_get_json):
+        """testing public_repos method"""
+        mock_get_json.return_value = [
+            {"name": "repo1", "license": {"key": "mit"}},
+            {"name": "repo2", "license": {"key": "apache-2.0"}},
+        ]
         with unittest.mock.patch("client.GithubOrgClient._public_repos_url",
                                  new_callable=unittest.mock.PropertyMock
                                  ) as mock_public_repos_url:
-            mock_public_repos_url.return_value = ["repo1", "repos2"]
+            mock_public_repos_url.return_value = "http://example.com/repos"
 
-            assert GithubOrgClient('google')._public_repos_url == [
-                "repo1", "repos2"
-                ]
+            client = GithubOrgClient('google')
+            repos = client.public_repos()
+            self.assertEqual(repos, ["repo1", "repo2"])
+
+            mock_get_json.assert_called_once()
+            mock_public_repos_url.assert_called_once()
