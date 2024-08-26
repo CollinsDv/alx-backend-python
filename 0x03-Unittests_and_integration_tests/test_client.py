@@ -78,3 +78,22 @@ class TestGithubOrgClient(unittest.TestCase):
 
             mock_get_json.assert_called_once()
             mock_public_repos_url.assert_called_once()
+
+    """
+    Implement TestGithubOrgClient.test_has_license to unit-test
+        GithubOrgClient.has_license.
+
+    Parametrize the test with the following inputs
+
+    repo={"license": {"key": "my_license"}}, license_key="my_license"
+    repo={"license": {"key": "other_license"}}, license_key="my_license"
+    You should also parameterize the expected returned value.
+    """
+    @parameterized.expand([
+        ({"license": {"key": "my_license"}}, "my_license", True),
+        ({"license": {"key": "other_license"}}, "my_license", False)
+    ])
+    def test_has_license(self, repos, license, expected):
+        """tests GithubOrgClient.has_license"""
+        assert GithubOrgClient('any').has_license(
+            repos, license) == expected
