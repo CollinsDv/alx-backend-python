@@ -8,8 +8,9 @@ Test inputs:
     nested_map={"a": {"b": 2}}, path=("a", "b")
 """
 import unittest
+import unittest.mock
 from parameterized import parameterized
-from utils import access_nested_map, get_json
+from utils import access_nested_map, get_json, memoize
 
 
 class TestAccessNestedMap(unittest.TestCase):
@@ -49,3 +50,23 @@ class TestGetJson(unittest.TestCase):
 
         assert get_json(link) == payload
         mock_get.assert_called_once_with(link)
+
+
+class TestMemoize(unittest.TestCase):
+    """tests memoization"""
+    def test_memoize(self):
+        class TestClass:
+            def a_method(self):
+                return 42
+
+            @memoize
+            def a_property(self):
+                return self.a_method()
+
+        with unittest.mock.patch.object(TestClass, 'a_method',
+                                        return_value=42) as a_method_mock:
+            test_class = TestClass()
+            test_class.a_property
+            test_class.a_property
+
+            a_method_mock.assert_called_once()
