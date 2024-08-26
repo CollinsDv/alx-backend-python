@@ -24,3 +24,19 @@ class TestGithubOrgClient(unittest.TestCase):
         GithubOrgClient(org_name).org
 
         get_json_mock.assert_called_once()
+
+    """
+    memoize turns methods into properties(mock.PropertyMock).
+
+    Implement the test_public_repos_url method to unit-test GithubOrgClient._public_repos_url.
+
+    Use patch as a context manager to patch GithubOrgClient.org and make it return a known payload.
+
+    Test that the result of _public_repos_url is the expected one based on the mocked payload.
+    """
+    def test_public_repos_url(self):
+        """tests GithubOrgClient._public_repos_url"""
+        with unittest.mock.patch("client.GithubOrgClient.org", new_callable=unittest.mock.PropertyMock) as mock_org:
+            mock_org.return_value = {"repos_url": True}
+
+            assert GithubOrgClient('Google')._public_repos_url == True
