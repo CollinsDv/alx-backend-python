@@ -45,3 +45,30 @@ class TestGithubOrgClient(unittest.TestCase):
             mock_org.return_value = {"repos_url": True}
 
             assert GithubOrgClient('Google')._public_repos_url
+
+    """
+    Implement TestGithubOrgClient.test_public_repos to unit-test
+        GithubOrgClient.public_repos.
+
+    Use @patch as a decorator to mock get_json and make it return
+        a payload of your choice.
+
+    Use patch as a context manager to mock GithubOrgClient._public_repos_url
+        and return a value of your choice.
+
+    Test that the list of repos is what you expect from the chosen payload.
+
+    Test that the mocked property and the mocked get_json was called once.
+    """
+    @unittest.mock.patch("client.get_json")
+    def test_public_repos_url(self, mock_get_json):
+        """testing _public_repos method"""
+        # mock_get_json.return_value = {"repos_url": "www.example.com"}
+        with unittest.mock.patch("client.GithubOrgClient._public_repos_url",
+                                 new_callable=unittest.mock.PropertyMock
+                                 ) as mock_public_repos_url:
+            mock_public_repos_url.return_value = ["repo1", "repos2"]
+
+            assert GithubOrgClient('google')._public_repos_url == [
+                "repo1", "repos2"
+                ]
